@@ -1,24 +1,29 @@
 import React from 'react';
 
-//Stateless component
-// const App = () => <h1>Hello, Stateless Component</h1>
-
-
-// Class component can have state, but stateless component cannot
 class App extends React.Component{
   render() {
+    let txt = this.props.txt;
+    let num = this.props.cat;
     return (
       <div>
-        {/*This is how you comment inside JSX*/}
-        {/*Return cannot return consecutive tags because it is like
-          returning two consecutive functions which won't translate well.
-          Instead, one is supposed to wrap consecutive tags within a wrapper
-          tag like <div>*/}
-        <h1>Hello World, this is a test</h1>
-        <article>This here is some sample article text.</article>
+        <h1>Hello World</h1>
+        <article>{txt}</article>
+        <p>{num}</p>
       </div>
-    )
+    );
   }
+}
+
+//This is how prop types are assigned to the class
+App.propTypes = {
+  txt: React.PropTypes.string,
+  // Note how isRequired will help throw a warning if the value is not assigned
+  cat: React.PropTypes.number.isRequired
+}
+
+//Assigning default values
+App.defaultProps = {
+  txt: "This is the default text."
 }
 
 export default App
