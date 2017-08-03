@@ -1,8 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from 'react'; //Library that allows building of react components
+import ReactDOM from 'react-dom'; //Allows components to work in context of the DOM
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
