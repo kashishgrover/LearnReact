@@ -4,7 +4,7 @@ class App extends React.Component{
   constructor() {
     super();
     this.state= {
-      txt: 'This is the default text',
+      txt: 'This is the default text from constructor',
       cat: 0
     }
   }
@@ -16,11 +16,16 @@ class App extends React.Component{
   render() {
     return (
       <div>
-        <input type="text" onChange={this.updateState.bind(this)} />
         <h1>{this.state.txt} - {this.state.cat}</h1>
+        <Widget update={this.updateState.bind(this)} />
+        {/* Note the prop 'update' of the Widget node */}        
+        <Widget update={this.updateState.bind(this)} />
       </div>
     );
   }
 }
+
+const Widget = (props) =>
+  <input type="text" onChange={props.update} />
 
 export default App
