@@ -3,4 +3,4 @@ import ReactDOM from 'react-dom'; //Allows components to work in context of the 
 
 import App from './App';
 
-ReactDOM.render(<App cat={6} />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

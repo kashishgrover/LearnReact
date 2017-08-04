@@ -1,29 +1,26 @@
 import React from 'react';
 
 class App extends React.Component{
+  constructor() {
+    super();
+    this.state= {
+      txt: 'This is the default text',
+      cat: 0
+    }
+  }
+
+  updateState(evt) {
+    this.setState({txt: evt.target.value})
+  }
+
   render() {
-    let txt = this.props.txt;
-    let num = this.props.cat;
     return (
       <div>
-        <h1>Hello World</h1>
-        <article>{txt}</article>
-        <p>{num}</p>
+        <input type="text" onChange={this.updateState.bind(this)} />
+        <h1>{this.state.txt} - {this.state.cat}</h1>
       </div>
     );
   }
-}
-
-//This is how prop types are assigned to the class
-App.propTypes = {
-  txt: React.PropTypes.string,
-  // Note how isRequired will help throw a warning if the value is not assigned
-  cat: React.PropTypes.number.isRequired
-}
-
-//Assigning default values
-App.defaultProps = {
-  txt: "This is the default text."
 }
 
 export default App
