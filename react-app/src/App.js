@@ -1,43 +1,38 @@
 import React from 'react';
 
-//React Custom propType validation
+//React Synthetic Event System
 
 class App extends React.Component{
+
+  constructor() {
+    super();
+    this.state = {currentEvent: '---'}
+    this.update = this.update.bind(this)
+  }
+
+  update(e) {
+    this.setState({currentEvent: e.type})
+  }
+
   render() {
     return (
       <div>
-        <Title text="Hello World"/>
-        <Lorem text="This is a test"/>
+        <textarea
+          onKeyPress={this.update}
+          onCopy={this.update}
+          onCut={this.update}
+          onPaste={this.update}
+          onFocus={this.update}
+          onBlur={this.update}
+          onMouseOver={this.update}
+          onDoubleClick={this.update}
+          onTouchMove={this.update}
+          cols="30"
+          rows="10" />
+        <h1>{this.state.currentEvent}</h1>
       </div>
     )
   }
 }
-
-class Title extends React.Component {
-  render() {
-    return (<h1>Title: {this.props.text}</h1>)
-  }
-}
-
-Title.propTypes = {
-  text: React.PropTypes.string.isRequired
-  //This is about the extent of built in validation react can achieve
-}
-
-///////
-const Lorem = (props) => (<h2>Lorem ipsum: {props.text}</h2>)
-
-Lorem.propTypes = {
-  //There is a possibility to create custom validations as follows:
-  text(props, propName, component) {
-    if(!(propName in props)) {
-      return new Error(`missing ${propName}`)
-    }
-    if(props[propName].length < 20) {
-      return new Error(`${propName} should be greater than 20`)
-    }
-  }
-}
-///////
 
 export default App
