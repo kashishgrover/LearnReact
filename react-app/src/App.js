@@ -1,51 +1,70 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-//React using refs to access components
+// Understanding React component Lifecycle methods
+
+//When a component is added to our Virtual DOM,
+//it is called 'Mounting', and when it is removed,
+//it is called 'Unmounting'
 
 class App extends React.Component{
-  constructor() {
-    super();
-    this.state = {a: ''}
+    constructor() {
+      console.log("In Constructor")
+      super();
+      this.state = {
+        val: 0
+      }
+      this.update = this.update.bind(this)
+    }
+
+    update() {
+      console.log("In Update")
+      this.setState({val: this.state.val + 1})
+    }
+
+    componentWillMount() {
+      console.log("componentWillMount")
+    }
+
+    render() {
+      console.log("In Render")
+      return (
+        <div>
+          <center>
+            <h3>Well, hello there</h3>
+            <button onClick={this.update}>{this.state.val}</button>
+          </center>
+        </div>
+      )
+    }
+
+    componentDidMount() {
+      console.log("componentDidMount")
+    }
+
+    componentWillUnmount() {
+      console.log("componentWillUnmount")
+    }
+}
+
+class Wrapper extends React.Component {
+  mount() {
+    ReactDOM.render(<App />, document.getElementById('a'))
   }
 
-  update() {
-    this.setState({
-      a: this.a.value,
-      b: this.refs.b.value,
-      c: ReactDOM.findDOMNode(this.c).value
-    })
+  unmount() {
+    ReactDOM.unmountComponentAtNode(document.getElementById('a'))
   }
 
   render() {
     return (
-      <div>
-        {/* Ref can even take a callback */}
-        <input
-          ref={ node => this.a = node }
-          type="text"
-          onChange={this.update.bind(this)}
-        /> {this.state.a}
-        <hr />
-        <input
-          ref="b"
-          type="text"
-          onChange={this.update.bind(this)}
-        /> {this.state.b}
-        <hr />
-        <Input
-          ref={component => this.c = component}
-          update={this.update.bind(this)}
-        /> {this.state.c}
-      </div>
+      <center>
+        <button onClick={this.mount.bind(this)}>Mount</button>
+        <button onClick={this.unmount.bind(this)}>Unmount</button>
+        <div id="a"></div>
+      </center>
     )
   }
 }
 
-class Input extends React.Component {
-  render() {
-    return <input type="text" onChange={this.props.update} />
-  }
-}
-
-export default App
+export default Wrapper
